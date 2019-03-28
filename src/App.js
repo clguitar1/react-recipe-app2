@@ -1,25 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Form from "./components/Form";
+import Recipes from "./components/Recipes";
+
+import "./App.css";
+
+const API_KEY = "cc33a02c16fadb22aea4ecea7184fee1";
+const API_ID = "14c68664";
 
 class App extends Component {
+  state = { recipes: [] };
+
+  getRecipe = async e => {
+    const recipeName = e.target.elements.recipeName.value;
+    //console.log(recipeName);
+    e.preventDefault();
+    const api_call = await fetch(
+      `https://api.edamam.com/search?q=${recipeName}&app_id=${API_ID}&app_key=${API_KEY}&from=0&to=10&calories=591-722`
+    );
+
+    const data = await api_call.json();
+    //console.log(data.hits[0].recipe.label);
+    this.setState({ recipes: data.hits });
+    console.log(this.state.recipes);
+  };
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1 className="App-title">Recipe Search</h1>
         </header>
+        <Form getRecipe={this.getRecipe} />
+        <Recipes recipes={this.state.recipes} />
       </div>
     );
   }
