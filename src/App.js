@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Form from "./components/Form";
 import Recipes from "./components/Recipes";
+import Dialog from './components/Dialog';
+import uuid from "uuid";
 
 import "./App.css";
 
@@ -8,7 +10,18 @@ const API_KEY = "cc33a02c16fadb22aea4ecea7184fee1";
 const API_ID = "14c68664";
 
 class App extends Component {
-  state = { recipes: [] };
+  state = {
+    recipes: [],
+    isOpen: false
+  };
+
+  openDialog = () => {
+    this.setState({ isOpen: true })
+  }
+
+  closeDialog = () => {
+    this.setState({ isOpen: false })
+  }
 
   getRecipe = async e => {
     const recipeName = e.target.elements.recipeName.value;
@@ -21,7 +34,7 @@ class App extends Component {
     const data = await api_call.json();
     //console.log(data.hits[0].recipe.label);
     this.setState({ recipes: data.hits });
-    console.log(this.state.recipes);
+    //console.log(this.state.recipes);
   };
   render() {
     return (
@@ -30,7 +43,17 @@ class App extends Component {
           <h1 className="App-title">Recipe Search</h1>
         </header>
         <Form getRecipe={this.getRecipe} />
-        <Recipes recipes={this.state.recipes} />
+        <Recipes
+          recipes={this.state.recipes}
+          isOpen={this.state.isOpen}
+          openDialog={this.openDialog}
+          key={uuid.v4()}
+        />
+        <Dialog
+          isOpen={this.state.isOpen}
+          closeDialog={this.closeDialog}
+          recipes={this.state.recipes}
+        />
       </div>
     );
   }
