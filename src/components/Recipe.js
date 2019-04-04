@@ -12,7 +12,8 @@ const Recipe = (props) => {
               <img src={x.recipe.image} alt={x.recipe.label} />
               <div className="card-body">
                 <p>{x.recipe.label}</p>
-                <button onClick={props.openDialog}>View</button>
+                <button className="btn btn-outline" onClick={props.openDialog}>View</button>
+                <button className="btn btn-outline">Test</button>
               </div>
             </div>
           </div>
