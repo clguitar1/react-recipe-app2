@@ -30,20 +30,15 @@ let dialogCloseButtonStyles = {
 };
 
 const Dialog = (props) => {
-  console.log(props.recipes)
-  // let dialog = (
-  //   <div style={dialogStyles}>
-  //     <h1>Dialog.js</h1>
-  //     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est tempora veniam sed nesciunt, odio maiores perspiciatis praesentium neque temporibus deserunt pariatur, omnis fuga sequi iure, commodi maxime laborum optio? Corrupti!</p>
-  //     <button onClick={props.closeDialog} style={dialogCloseButtonStyles}>X</button>
-  //   </div>
-  // );
+  //console.log(props.id)
+
   let dialog = <div>
     {props.recipes.map(x => {
       return (
         <div
           style={dialogStyles}
           key={uuid.v4()}
+          id={props.id}
         >
           <p>{x.recipe.label}</p>
           <p>Source: {x.recipe.source}</p>
@@ -51,7 +46,6 @@ const Dialog = (props) => {
         </div>
       )
     })
-
     }
   </div>
 

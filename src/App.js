@@ -53,6 +53,7 @@ class App extends Component {
           isOpen={this.state.isOpen}
           closeDialog={this.closeDialog}
           recipes={this.state.recipes}
+          id={uuid.v4()}
         />
       </div>
     );
