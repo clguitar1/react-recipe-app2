@@ -28,14 +28,27 @@ class App extends Component {
     //console.log(recipeName);
     e.preventDefault();
     const api_call = await fetch(
-      `https://api.edamam.com/search?q=${recipeName}&app_id=${API_ID}&app_key=${API_KEY}&from=0&to=10&calories=591-722`
+      `https://api.edamam.com/search?q=${recipeName}&app_id=${API_ID}&app_key=${API_KEY}&from=0&to=10&calories=591-1000`
     );
-
+    // https://api.edamam.com/search?q=chicken&app_id="14c68664"&app_key="cc33a02c16fadb22aea4ecea7184fee1"&from=0&to=3&calories=591-722
     const data = await api_call.json();
-    //console.log(data.hits[0].recipe.label);
     this.setState({ recipes: data.hits });
-    //console.log(this.state.recipes);
   };
+
+  // to keep the home page populated when retuning from a single recipe view
+  componentDidUpdate = () => {
+    //convert the state recipes to a json string and then save it in localStorage
+    const recipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem("recipes", recipes);
+  }
+
+  componentDidMount = () => {
+    const json = localStorage.getItem("recipes");
+    //convert the json string into an object
+    const recipes = JSON.parse(json);
+    this.setState({ recipes: recipes })
+  }
+
   render() {
     return (
       <div className="App">
@@ -47,7 +60,6 @@ class App extends Component {
           recipes={this.state.recipes}
           isOpen={this.state.isOpen}
           openDialog={this.openDialog}
-          key={uuid.v4()}
         />
         <Dialog
           isOpen={this.state.isOpen}

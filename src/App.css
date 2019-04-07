@@ -20,6 +20,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+  /* color: #6c757d !important; */
+}
+
 .App {
   text-align: center;
   background-color: #f8f9fa;
@@ -50,6 +55,7 @@ body {
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  max-width: 300px;
 }
 
 .card-body {
@@ -66,8 +72,3 @@ body {
     width: 100%;
   }
 }
-/*  
-.row  =    flexbox properties
-.col  =  padding left and right 
-.card =  card styles      
-*/
